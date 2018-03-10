@@ -2,6 +2,7 @@ import { Component, OnInit, EventEmitter, Output } from '@angular/core';
 import { FormGroup, FormControl } from '@angular/forms';
 
 import { Usuario } from '../usuario.model';
+import { Autenticacao } from '../../autenticacao.service';
 
 @Component({
   selector: 'app-cadastro',
@@ -20,7 +21,9 @@ export class CadastroComponent implements OnInit {
   @Output()
   public exibirPainel: EventEmitter<string> = new EventEmitter<string>()
 
-  constructor() { }
+  constructor(
+    private autenticacao: Autenticacao
+  ) { }
 
   ngOnInit() {
   }
@@ -39,7 +42,8 @@ export class CadastroComponent implements OnInit {
       this.formulario.value.senha
     )
 
-    console.log(usuario)
+    this.autenticacao.cadastarUsuario(usuario)
+    
   }
 
 }
