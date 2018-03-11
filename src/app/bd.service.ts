@@ -22,6 +22,7 @@ export class Bd {
           // acompanhamento de snapshot
           this.progresso.status = 'andamento'
           this.progresso.estado = snapshot
+
     //      console.log('Snapshot capturado no on()', snapshot)
         },
         (error) => {
