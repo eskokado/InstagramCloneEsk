@@ -53,8 +53,8 @@ export class IncluirPublicacaoComponent implements OnInit {
     acompanhamentoUpload
       .takeUntil(continua)
       .subscribe(() => {
-        console.log('Status no publicar ', this.progresso.status)
-        console.log('Estado no publicar', this.progresso.estado)
+//        console.log('Status no publicar ', this.progresso.status)
+//        console.log('Estado no publicar', this.progresso.estado)
         this.progressoPublicacao = 'andamento'
         this.porcentagemUpload = Math.round(
           (this.progresso.estado.bytesTransferred / 
@@ -66,7 +66,6 @@ export class IncluirPublicacaoComponent implements OnInit {
           continua.next(false)
         }
       })
-
   }
 
   public preparaImagemUpload(event: Event): void {

@@ -10,11 +10,17 @@ export class Bd {
   ) {}
 
   public publicar(publicacao: any) : void {
-    console.log(publicacao)
+//    console.log(publicacao)
 
-    let nomeImagem = Date.now()
+//    let nomeImagem = Date.now()
 
-    firebase.storage().ref()
+    firebase.database().ref(`publicacoes/${btoa(publicacao.email)}`)
+    .push( { titulo: publicacao.titulo } )
+    .then((resposta: any) => {
+//      console.log(resposta)
+      let nomeImagem = resposta.key
+
+      firebase.storage().ref()
       .child(`imagens/${nomeImagem}`)
       .put(publicacao.imagem)
       .on(firebase.storage.TaskEvent.STATE_CHANGED,
@@ -27,17 +33,24 @@ export class Bd {
         },
         (error) => {
           this.progresso.status = 'erro'
-          console.log(error)
+  //        console.log(error)
         },
         () => {
           // finalização do processo
           this.progresso.status = 'concluido'
-          console.log('upload completo')
+//          console.log('upload completo')
         }
       )
-    /*
-  firebase.database().ref(`publicacoes/${btoa(publicacao.email)}`)
-    .push( { titulo: publicacao.titulo } )
-    */
+    })
+ 
   }
+
+  public consultaPublicacoes(emailUsuario: string): any {
+    firebase.database().ref(`publicacoes/${btoa(emailUsuario)}`)
+      .once('value')
+      .then((snapshot: any) => {
+        console.log(snapshot.val())
+      })
+  }
+
 }
