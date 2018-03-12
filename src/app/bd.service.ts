@@ -50,9 +50,10 @@ export class Bd {
     return new Promise((resolve, reject) => {
       // consultar publicações da database
       firebase.database().ref(`publicacoes/${btoa(emailUsuario)}`)
+        .orderByKey()
         .once('value')
         .then((snapshot: any) => {
-          // console.log(snapshot.val())
+          console.log(snapshot.val())
           let publicacoes: Array<any> = [];
 
           snapshot.forEach((childSnapshot: any) => {
